@@ -13,23 +13,27 @@
   // 1. MASTER NIKUD COLOUR MAP
   // ---------------------------------------------------------------------------
   const ALL_NIKUD = {
-    '\u05B0': { color: '#1850f7ff', key: 'nikud_05B0', label: 'Shva'         },
-    '\u05B1': { color: '#f59f34ff', key: 'nikud_05B1', label: 'Hataf Segol'  },
-    '\u05B2': { color: '#66fd7aff', key: 'nikud_05B2', label: 'Hataf Patach' },
-    '\u05B3': { color: 'rgb(141, 98, 250)', key: 'nikud_05B3', label: 'Hataf Kamatz' },
-    '\u05B4': { color: 'rgb(16, 138, 118)', key: 'nikud_05B4', label: 'Hiriq'         },
-    '\u05B5': { color: '#fd29baff', key: 'nikud_05B5', label: 'Tsere'         },
-    '\u05B6': { color: '#f81b1bff', key: 'nikud_05B6', label: 'Segol'         },
-    '\u05B7': { color: '#b2b5b8ff', key: 'nikud_05B7', label: 'Patach'       },
-    '\u05B8': { color: '#bbed50ff', key: 'nikud_05B8', label: 'Kamatz'       },
-    '\u05B9': { color: '#6ee4efff', key: 'nikud_05B9', label: 'Holam'         },
-    '\u05BB': { color: '#1cc00dff', key: 'nikud_05BB', label: 'Kubutz'       },
-    '\u05BC': { color: 'rgb(242, 254, 6)', key: 'nikud_05BC', label: 'Dagesh'       },
+    '\u05B0': { color: '#7ec8f5', key: 'nikud_05B0', label: 'Shva'   },
+    '\u05B4': { color: '#7debb0', key: 'nikud_05B4', label: 'Hiriq'  },
+    '\u05B5': { color: '#fd29baff', key: 'nikud_05B5', label: 'Tsere'  },
+    '\u05B6': { color: '#f81b1b', key: 'nikud_05B6', label: 'Segol'  },
+    '\u05B7': { color: '#66fd7a', key: 'nikud_05B7', label: 'Patach' },
+    '\u05B8': { color: '#8d62fa', key: 'nikud_05B8', label: 'Kamatz' },
+    '\u05B9': { color: '#6ee4efff', key: 'nikud_05B9', label: 'Holam'  },
+    '\u05BB': { color: '#1cc00dff', key: 'nikud_05BB', label: 'Kubutz' },
+    '\u05BC': { color: 'rgb(242, 254, 6)', key: 'nikud_05BC', label: 'Dagesh' },
+  };
+
+  // Hataf vowels share their base nikud's color and toggle state
+  const HATAF_MAP = {
+    '\u05B1': '\u05B6', // Hataf Segol  → Segol
+    '\u05B2': '\u05B7', // Hataf Patach → Patach
+    '\u05B3': '\u05B8', // Hataf Kamatz → Kamatz
   };
 
   let ACTIVE_VOWEL_HIGHLIGHTS = {};
   let NIKUD_SET = new Set();
-  const ALL_NIKUD_SET = new Set(Object.keys(ALL_NIKUD));
+  const ALL_NIKUD_SET = new Set([...Object.keys(ALL_NIKUD), ...Object.keys(HATAF_MAP)]);
 
   // ---------------------------------------------------------------------------
   // 2. CHARACTER CLASSIFICATION HELPERS
@@ -52,6 +56,12 @@
     Object.entries(ALL_NIKUD).forEach(([char, meta]) => {
       if (settings[meta.key] !== false) {
         ACTIVE_VOWEL_HIGHLIGHTS[char] = meta.color;
+      }
+    });
+    // Hataf vowels mirror their base nikud's active state and color
+    Object.entries(HATAF_MAP).forEach(([hataf, base]) => {
+      if (ACTIVE_VOWEL_HIGHLIGHTS[base] !== undefined) {
+        ACTIVE_VOWEL_HIGHLIGHTS[hataf] = ACTIVE_VOWEL_HIGHLIGHTS[base];
       }
     });
     NIKUD_SET = new Set(Object.keys(ACTIVE_VOWEL_HIGHLIGHTS));
