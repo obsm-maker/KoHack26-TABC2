@@ -11,18 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Must stay in sync with content.js ALL_NIKUD — same keys, same order.
   // ---------------------------------------------------------------------------
   const NIKUD_LIST = [
-    { char: '\u05B0', key: 'nikud_05B0', label: 'Shva',         color: '#1850f7' },
-    { char: '\u05B1', key: 'nikud_05B1', label: 'Hataf Segol',  color: '#f59f34' },
-    { char: '\u05B2', key: 'nikud_05B2', label: 'Hataf Patach', color: '#66fd7a' },
-    { char: '\u05B3', key: 'nikud_05B3', label: 'Hataf Kamatz', color: 'rgb(141, 98, 250)' },
-    { char: '\u05B4', key: 'nikud_05B4', label: 'Hiriq',        color: 'rgb(16, 138, 118)' },
-    { char: '\u05B5', key: 'nikud_05B5', label: 'Tsere',        color: '#fd29ba' },
-    { char: '\u05B6', key: 'nikud_05B6', label: 'Segol',        color: '#f81b1b' },
-    { char: '\u05B7', key: 'nikud_05B7', label: 'Patach',       color: '#b2b5b8' },
-    { char: '\u05B8', key: 'nikud_05B8', label: 'Kamatz',       color: '#bbed50' },
-    { char: '\u05B9', key: 'nikud_05B9', label: 'Holam',        color: '#6ee4ef' },
-    { char: '\u05BB', key: 'nikud_05BB', label: 'Kubutz',       color: '#1cc00d' },
-    { char: '\u05BC', key: 'nikud_05BC', label: 'Dagesh',       color: 'rgb(242, 254, 6)' },
+    { char: '\u05B0', key: 'nikud_05B0', label: 'Shva',   color: '#7ec8f5' },
+    { char: '\u05B4', key: 'nikud_05B4', label: 'Hiriq',  color: '#7debb0' },
+    { char: '\u05B5', key: 'nikud_05B5', label: 'Tsere',  color: '#fd29ba' },
+    { char: '\u05B6', key: 'nikud_05B6', label: 'Segol',  color: '#f81b1b' },
+    { char: '\u05B7', key: 'nikud_05B7', label: 'Patach', color: '#66fd7a' },
+    { char: '\u05B8', key: 'nikud_05B8', label: 'Kamatz', color: '#8d62fa' },
+    { char: '\u05B9', key: 'nikud_05B9', label: 'Holam',  color: '#6ee4ef' },
+    { char: '\u05BB', key: 'nikud_05BB', label: 'Kubutz', color: '#1cc00d' },
+    { char: '\u05BC', key: 'nikud_05BC', label: 'Dagesh', color: '#f2fe06' },
   ];
 
   // ---------------------------------------------------------------------------
