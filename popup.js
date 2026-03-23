@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Must stay in sync with content.js ALL_NIKUD — same keys, same order.
   // ---------------------------------------------------------------------------
   const NIKUD_LIST = [
-    { char: '\u05B0', key: 'nikud_05B0', label: 'Shva',   color: '#7ec8f5' },
+    { char: '\u05B0', key: 'nikud_05B0', label: 'Shva',   color: '#3877ff' },
     { char: '\u05B4', key: 'nikud_05B4', label: 'Hiriq',  color: '#7debb0' },
     { char: '\u05B5', key: 'nikud_05B5', label: 'Tsere',  color: '#fd29ba' },
     { char: '\u05B6', key: 'nikud_05B6', label: 'Segol',  color: '#f81b1b' },
