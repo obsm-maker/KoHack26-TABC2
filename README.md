@@ -1,4 +1,4 @@
-🛠 Installation Guide
+🛠 Installation Guide -
 Follow these steps to get Otyiot+ up and running in seconds:
 
 1. Prepare the Files
