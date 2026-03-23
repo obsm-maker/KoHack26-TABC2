@@ -13,7 +13,7 @@
   // 1. MASTER NIKUD COLOUR MAP
   // ---------------------------------------------------------------------------
   const ALL_NIKUD = {
-    '\u05B0': { color: '#7ec8f5', key: 'nikud_05B0', label: 'Shva'   },
+    '\u05B0': { color: '#3877ff', key: 'nikud_05B0', label: 'Shva'   },
     '\u05B4': { color: '#7debb0', key: 'nikud_05B4', label: 'Hiriq'  },
     '\u05B5': { color: '#fd29baff', key: 'nikud_05B5', label: 'Tsere'  },
     '\u05B6': { color: '#f81b1b', key: 'nikud_05B6', label: 'Segol'  },
@@ -40,6 +40,14 @@
   // ---------------------------------------------------------------------------
   function isCantillation(code) { return code >= 0x0591 && code <= 0x05AF; }
   function isHebrewLetter(code) { return code >= 0x05D0 && code <= 0x05EA; }
+  // Shin Dot (U+05C1) and Sin Dot (U+05C2) are letter-modifiers, not nikud.
+  // U+05BF (Rafe) and U+05C4, U+05C5 (upper/lower dots) are also non-vowel marks.
+  // We pass all of these through silently so they don't break diacritic collection.
+  function isLetterModifier(code) {
+    return code === 0x05C1 || code === 0x05C2 || // Shin Dot, Sin Dot
+           code === 0x05BF ||                     // Rafe
+           code === 0x05C4 || code === 0x05C5;    // Hebrew Upper/Lower Dot
+  }
 
   // ---------------------------------------------------------------------------
   // 3. SETTINGS
@@ -182,8 +190,19 @@
             const next = text[j];
             const nextCode = next.charCodeAt(0);
 
-            if (NIKUD_SET.has(next)) {
-              if (firstNikud === null) firstNikud = next;
+            if (isLetterModifier(nextCode)) {
+              // Shin/Sin dot, Rafe, etc. — collect silently, never influence colour
+              diacritics += next;
+              j++;
+            } else if (NIKUD_SET.has(next)) {
+              // Real vowel (or Dagesh if enabled) — but Dagesh only wins if no
+              // real vowel has been seen yet AND it is not U+05BC beating an actual vowel
+              if (firstNikud === null) {
+                firstNikud = next;
+              } else if (next !== '\u05BC' && firstNikud === '\u05BC') {
+                // A real vowel found after we provisionally set Dagesh — upgrade
+                firstNikud = next;
+              }
               diacritics += next;
               j++;
             } else if (ALL_NIKUD_SET.has(next)) {
@@ -193,6 +212,12 @@
               diacritics += next;
               j++;
             } else { break; }
+          }
+
+          // Special case: Vav (ו) + Dagesh = Shuruk (וּ), an "oo" vowel identical
+          // in sound to Kubutz. Remap its colour to Kubutz so it highlights consistently.
+          if (char === '\u05D5' && firstNikud === '\u05BC' && !diacritics.replace('\u05BC', '').match(/[\u05B0-\u05BD\u05B1-\u05B3]/)) {
+            firstNikud = '\u05BB'; // Kubutz
           }
 
           if (firstNikud !== null) {
