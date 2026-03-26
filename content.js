@@ -56,7 +56,7 @@
     colorNekudot:  true,
     fontEnabled:   true,
     letterSpacing: 0,
-    focusMode:     false, // NEW: Default Focus Mode setting
+    focusMode:     false,
   };
 
   function rebuildActiveNikud() {
@@ -75,7 +75,7 @@
     NIKUD_SET = new Set(Object.keys(ACTIVE_VOWEL_HIGHLIGHTS));
   }
 
- // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // 4. STYLE INJECTION
   // Writes (or rewrites) a single <style> tag with all visual rules.
   // ---------------------------------------------------------------------------
@@ -116,7 +116,6 @@
 
     // Focus Mode Overlay CSS
     // Using will-change: clip-path for high-performance scrolling
-// REPLACING SECTION 4 (Focus Mode Overlay CSS)
     const focusStyle = `
       #otiyot-focus-overlay {
         position: fixed;
@@ -144,8 +143,6 @@
         background: rgba(41, 171, 226, 0.2); 
       }
     `;
-
-    styleEl.textContent = fontFace + fontRule + spacingRule + spanStyle + focusStyle;
 
     styleEl.textContent = fontFace + fontRule + spacingRule + spanStyle + focusStyle;
   }
@@ -265,10 +262,9 @@
   });
 
   // ---------------------------------------------------------------------------
-  // 6.5 ENHANCED READING FOCUS MODE LOGIC
+  // 6.5 READING FOCUS MODE
   // Handles the spotlight effect. Supports scrolling and Niqqud-spans.
   // ---------------------------------------------------------------------------
-// REPLACING SECTION 6.5 (initFocusMode)
   function initFocusMode() {
     if (!settings.focusMode) return;
 
@@ -338,8 +334,7 @@
     applyVisualSettings();
     processTextNodes(document.body);
     
-    // Initialize focus mode
-    initFocusMode(); 
+    initFocusMode();
     
     observer.observe(document.body, { childList: true, subtree: true });
   });
